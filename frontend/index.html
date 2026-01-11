@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Me-API Playground</title>
+</head>
+<body>
+<h1>My Profile</h1>
+<pre id="profile"></pre>
+
+<h2>Search Projects by Skill</h2>
+<input id="skill" placeholder="python">
+<button onclick="search()">Search</button>
+<pre id="projects"></pre>
+
+<script>
+const API = "http://localhost:8000";
+
+fetch(`${API}/profile`)
+  .then(res => res.json())
+  .then(data => document.getElementById("profile").innerText = JSON.stringify(data, null, 2));
+
+function search() {
+  const skill = document.getElementById("skill").value;
+  fetch(`${API}/projects?skill=${skill}`)
+    .then(res => res.json())
+    .then(data => document.getElementById("projects").innerText = JSON.stringify(data, null, 2));
+}
+</script>
+</body>
+</html>
